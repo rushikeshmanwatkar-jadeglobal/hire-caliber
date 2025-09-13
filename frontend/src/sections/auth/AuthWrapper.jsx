@@ -12,7 +12,6 @@ import AuthCard from './AuthCard';
 // assets
 import AuthBackground from './AuthBackground';
 
-// ==============================|| AUTHENTICATION - WRAPPER ||============================== //
 
 export default function AuthWrapper({ children }) {
   return (

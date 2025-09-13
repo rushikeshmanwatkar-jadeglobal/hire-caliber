@@ -28,7 +28,6 @@ import { strengthColor, strengthIndicator } from 'utils/password-strength';
 import EyeOutlined from '@ant-design/icons/EyeOutlined';
 import EyeInvisibleOutlined from '@ant-design/icons/EyeInvisibleOutlined';
 
-// ============================|| JWT - REGISTER ||============================ //
 
 export default function AuthRegister() {
   const [level, setLevel] = useState();
@@ -84,7 +83,7 @@ export default function AuthRegister() {
                     name="firstname"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    placeholder="John"
+                    placeholder="First Name"
                     fullWidth
                     error={Boolean(touched.firstname && errors.firstname)}
                   />
@@ -107,7 +106,7 @@ export default function AuthRegister() {
                     name="lastname"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    placeholder="Doe"
+                    placeholder="Last Name"
                   />
                 </Stack>
                 {touched.lastname && errors.lastname && (
@@ -127,7 +126,7 @@ export default function AuthRegister() {
                     name="company"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    placeholder="Demo Inc."
+                    placeholder="Jade Global Software Pvt. Ltd."
                   />
                 </Stack>
                 {touched.company && errors.company && (
@@ -148,7 +147,7 @@ export default function AuthRegister() {
                     name="email"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    placeholder="demo@company.com"
+                    placeholder="example@jadeglobal.com"
                   />
                 </Stack>
                 {touched.email && errors.email && (
@@ -206,18 +205,7 @@ export default function AuthRegister() {
                   </Grid>
                 </FormControl>
               </Grid>
-              <Grid size={12}>
-                <Typography variant="body2">
-                  By Signing up, you agree to our &nbsp;
-                  <Link variant="subtitle2" component={RouterLink} to="#">
-                    Terms of Service
-                  </Link>
-                  &nbsp; and &nbsp;
-                  <Link variant="subtitle2" component={RouterLink} to="#">
-                    Privacy Policy
-                  </Link>
-                </Typography>
-              </Grid>
+
               {errors.submit && (
                 <Grid size={12}>
                   <FormHelperText error>{errors.submit}</FormHelperText>

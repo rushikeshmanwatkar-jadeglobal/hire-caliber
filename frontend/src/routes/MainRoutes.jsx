@@ -3,9 +3,11 @@ import { lazy } from 'react';
 // project imports
 import Loadable from 'components/Loadable';
 import DashboardLayout from 'layout/Dashboard';
+// import HomePage from '../pages/HomePage/home';
 
 // render- Dashboard
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard/default')));
+const HomePageDefault = Loadable(lazy(() => import('pages/component-overview/home')));
 
 // render - color
 const Color = Loadable(lazy(() => import('pages/component-overview/color')));
@@ -33,6 +35,11 @@ const MainRoutes = {
           element: <DashboardDefault />
         }
       ]
+    },
+
+    {
+      path: 'home',
+      element: <HomePageDefault />
     },
     {
       path: 'typography',

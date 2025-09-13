@@ -35,5 +35,6 @@ export default function LogoIcon() {
         </linearGradient>
       </defs>
     </svg>
+    // <img src="/src/assets/images/hire-caliber-high-resolution-logo-transparent.png" width="170" height="30" />
   );
 }

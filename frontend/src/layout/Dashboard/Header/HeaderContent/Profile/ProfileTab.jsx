@@ -23,6 +23,7 @@ export default function ProfileTab() {
         </ListItemIcon>
         <ListItemText primary="Edit Profile" />
       </ListItemButton>
+
       <ListItemButton>
         <ListItemIcon>
           <UserOutlined />
@@ -31,23 +32,12 @@ export default function ProfileTab() {
       </ListItemButton>
 
       <ListItemButton>
-        <ListItemIcon>
-          <ProfileOutlined />
-        </ListItemIcon>
-        <ListItemText primary="Social Profile" />
-      </ListItemButton>
-      <ListItemButton>
-        <ListItemIcon>
-          <WalletOutlined />
-        </ListItemIcon>
-        <ListItemText primary="Billing" />
-      </ListItemButton>
-      <ListItemButton>
-        <ListItemIcon>
-          <LogoutOutlined />
-        </ListItemIcon>
-        <ListItemText primary="Logout" />
-      </ListItemButton>
+              <ListItemIcon>
+                <UserOutlined />
+              </ListItemIcon>
+              <ListItemText primary="Account Settings" />
+            </ListItemButton>
+
     </List>
   );
 }

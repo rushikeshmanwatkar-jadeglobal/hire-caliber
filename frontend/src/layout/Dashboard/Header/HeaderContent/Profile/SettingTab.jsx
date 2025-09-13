@@ -25,12 +25,7 @@ export default function SettingTab() {
           <ListItemText primary="Support" />
         </ListItemButton>
       </Link>
-      <ListItemButton>
-        <ListItemIcon>
-          <UserOutlined />
-        </ListItemIcon>
-        <ListItemText primary="Account Settings" />
-      </ListItemButton>
+      
       <ListItemButton>
         <ListItemIcon>
           <LockOutlined />

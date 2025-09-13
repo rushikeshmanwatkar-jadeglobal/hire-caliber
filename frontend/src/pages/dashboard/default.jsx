@@ -48,7 +48,6 @@ const actionSX = {
   transform: 'none'
 };
 
-// ==============================|| DASHBOARD - DEFAULT ||============================== //
 
 export default function DashboardDefault() {
   return (

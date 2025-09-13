@@ -29,6 +29,7 @@ import LogoutOutlined from '@ant-design/icons/LogoutOutlined';
 import SettingOutlined from '@ant-design/icons/SettingOutlined';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import avatar1 from 'assets/images/users/avatar-1.png';
+import { useNavigate } from 'react-router';
 
 // tab panel wrapper
 function TabPanel({ children, value, index, ...other }) {
@@ -50,6 +51,7 @@ function a11yProps(index) {
 
 export default function Profile() {
   const theme = useTheme();
+  const navigate = useNavigate();
 
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
@@ -63,6 +65,9 @@ export default function Profile() {
     }
     setOpen(false);
   };
+  const handleLogout = () => {
+    navigate('/login');
+  } 
 
   const [value, setValue] = useState(0);
 
@@ -90,7 +95,7 @@ export default function Profile() {
         <Stack direction="row" sx={{ gap: 1.25, alignItems: 'center', p: 0.5 }}>
           <Avatar alt="profile user" src={avatar1} size="sm" />
           <Typography variant="subtitle1" sx={{ textTransform: 'capitalize' }}>
-            John Doe
+            Jade Global
           </Typography>
         </Stack>
       </ButtonBase>
@@ -123,16 +128,16 @@ export default function Profile() {
                         <Stack direction="row" sx={{ gap: 1.25, alignItems: 'center' }}>
                           <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
                           <Stack>
-                            <Typography variant="h6">John Doe</Typography>
+                            <Typography variant="h6">Jade Global</Typography>
                             <Typography variant="body2" color="text.secondary">
-                              UI/UX Designer
+                              Software Pvt. Ltd.
                             </Typography>
                           </Stack>
                         </Stack>
                       </Grid>
                       <Grid>
                         <Tooltip title="Logout">
-                          <IconButton size="large" sx={{ color: 'text.primary' }}>
+                          <IconButton size="large" sx={{ color: 'text.primary' }}  onClick={handleLogout}>
                             <LogoutOutlined />
                           </IconButton>
                         </Tooltip>
@@ -141,7 +146,7 @@ export default function Profile() {
                   </CardContent>
 
                   <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <Tabs variant="fullWidth" value={value} onChange={handleChange} aria-label="profile tabs">
+                    {/* <Tabs variant="fullWidth" value={value} onChange={handleChange} aria-label="profile tabs">
                       <Tab
                         sx={{
                           display: 'flex',
@@ -174,14 +179,14 @@ export default function Profile() {
                         label="Setting"
                         {...a11yProps(1)}
                       />
-                    </Tabs>
+                    </Tabs> */}
                   </Box>
                   <TabPanel value={value} index={0} dir={theme.direction}>
                     <ProfileTab />
                   </TabPanel>
-                  <TabPanel value={value} index={1} dir={theme.direction}>
+                  {/* <TabPanel value={value} index={1} dir={theme.direction}>
                     <SettingTab />
-                  </TabPanel>
+                  </TabPanel> */}
                 </MainCard>
               </ClickAwayListener>
             </Paper>
