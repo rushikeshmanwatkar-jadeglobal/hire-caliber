@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+beanie
+motor
+openai
+python-dotenv
+chromadb
+pypdf
+python-multipart
