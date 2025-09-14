@@ -5,7 +5,8 @@ import {
   BarcodeOutlined,
   BgColorsOutlined,
   FontSizeOutlined,
-  LoadingOutlined
+  LoadingOutlined,
+  FileAddOutlined
 } from '@ant-design/icons';
 
 // icons
@@ -15,7 +16,8 @@ const icons = {
   BarcodeOutlined,
   AntDesignOutlined,
   LoadingOutlined,
-  AppstoreAddOutlined
+  AppstoreAddOutlined,
+  FileAddOutlined
 };
 
 // ==============================|| MENU ITEMS - UTILITIES ||============================== //
@@ -32,7 +34,13 @@ const utilities = {
       url: '/typography',
       icon: icons.FontSizeOutlined
     },
-
+    {
+      id: 'util-uploadfile',
+      title: 'Upload Resume',
+      type: 'item',
+      url: '/uploadfile',
+      icon: icons.FileAddOutlined
+    }
   ]
 };
 

@@ -13,6 +13,7 @@ const HomePageDefault = Loadable(lazy(() => import('pages/component-overview/hom
 const Color = Loadable(lazy(() => import('pages/component-overview/color')));
 const Typography = Loadable(lazy(() => import('pages/component-overview/typography')));
 const Shadow = Loadable(lazy(() => import('pages/component-overview/shadows')));
+const UploadFile = Loadable(lazy(() => import('pages/component-overview/UploadFile')));
 
 // render - sample page
 const SamplePage = Loadable(lazy(() => import('pages/extra-pages/sample-page')));
@@ -44,6 +45,10 @@ const MainRoutes = {
     {
       path: 'typography',
       element: <Typography />
+    },
+    {
+      path: 'uploadfile',
+      element: <UploadFile />
     },
     {
       path: 'color',
