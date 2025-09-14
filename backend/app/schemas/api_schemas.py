@@ -1,6 +1,6 @@
 # app/schemas/api_models.py
 from pydantic import BaseModel, Field
-from typing import Optional, List
+from typing import Optional, List, Dict, Any
 from beanie import PydanticObjectId
 from app.db.models import ProcessingStatus  # Reuse the enum
 
@@ -13,8 +13,8 @@ class DocumentStatusResponse(BaseModel):
 
 class CandidateResponse(BaseModel):
     id: PydanticObjectId = Field(..., alias="_id")
-    filename: str
-    status: ProcessingStatus
+    name: str
+    summarized_profile: Dict[str, Any]
 
     class Config:
         populate_by_name = True

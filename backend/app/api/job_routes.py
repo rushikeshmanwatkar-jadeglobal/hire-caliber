@@ -10,14 +10,17 @@ from app.services.matching_service import find_matches_for_job
 
 router = APIRouter(prefix="/jobs", tags=["Jobs"])
 
-from app.services.ta_service import ta_service, TalentAcquisitionService
+from app.services.ta_service import (
+    TalentAcquisitionService,
+    TalentAcquisitionService,
+)
 from app.schemas.api_schemas import JobResponse, CandidateResponse
 
 
 @router.get("/", response_model=List[JobResponse])
 async def list_jobs():
     """Lists all available jobs."""
-    return await ta_service.get_all_jobs()
+    return await TalentAcquisitionService.get_all_jobs()
 
 
 @router.post("/", response_model=JobResponse, status_code=202)

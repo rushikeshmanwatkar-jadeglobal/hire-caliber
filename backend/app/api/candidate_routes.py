@@ -1,11 +1,13 @@
 # app/api/candidates.py
 import base64
+from typing import Any, List
 from fastapi import APIRouter, UploadFile, File, HTTPException
 from beanie import PydanticObjectId
+from torch import Value
 
 from app.db.models import Candidate, ProcessingStatus
 from app.schemas.api_schemas import CandidateResponse, DocumentStatusResponse
-from app.tasks.process import _process_resume
+from app.services.ta_service import TalentAcquisitionService
 
 router = APIRouter(
     prefix="/candidates",  # All routes in this file will start with /candidates
@@ -13,20 +15,26 @@ router = APIRouter(
 )
 
 
-@router.post("/upload", response_model=CandidateResponse, status_code=202)
-async def upload_resume(file: UploadFile = File(...)):
+@router.post("/upload", status_code=202)
+async def upload_resume(files: List[UploadFile] | UploadFile = File(...)):
     try:
         """Upload a resume, create a candidate record, and start background processing."""
-        if not file.filename:
-            raise HTTPException(status_code=400, detail="No file name found.")
+        files = files if isinstance(files, list) else [files]
 
-        contents = await file.read()
+        new_candidates = await TalentAcquisitionService.process_resumes_for_job(
+            resume_files=files
+        )
+        response = []
+        if len(new_candidates) == 0:
+            raise RuntimeError("No candidates were added!")
 
-        candidate = Candidate(filename=file.filename)
-        await candidate.create()
-
-        contents_b64 = base64.b64encode(contents).decode("utf-8")
-        await _process_resume(str(candidate.id), contents_b64, file.filename)
-        return CandidateResponse(**candidate.model_dump(by_alias=True))
+        if len(new_candidates) > 1:
+            for candidate in new_candidates:
+                r = CandidateResponse(**candidate.model_dump(by_alias=True))
+                response.append(r)
+        else:
+            r = CandidateResponse(**new_candidates[0].model_dump(by_alias=True))
+            response.append(r)
+        return response
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

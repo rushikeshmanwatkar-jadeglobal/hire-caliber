@@ -67,7 +67,7 @@ class DocumentProcessor:
                     documents=chunks,
                 )
 
-            return chunks, embeddings
+            return embeddings
         except Exception as e:
             raise e
 

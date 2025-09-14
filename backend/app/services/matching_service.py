@@ -42,14 +42,13 @@ async def find_matches_for_job(job_id: str, top_n: int = 10) -> list:
         )
 
         final_matches = []
-        for cid_str, score in ranked_candidates[:top_n]:
+        for cid_str in ranked_candidates[:top_n]:
             candidate_data = await Candidate.get(PydanticObjectId(cid_str))
             if candidate_data:
                 final_matches.append(
                     {
                         "candidate_id": str(candidate_data.id),
-                        "candidate_filename": candidate_data.filename,
-                        "score": score,
+                        "name": candidate_data.name,
                     }
                 )
 

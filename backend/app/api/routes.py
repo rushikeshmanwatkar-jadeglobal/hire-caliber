@@ -2,7 +2,10 @@ from fastapi import APIRouter, UploadFile, File, Form, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 from uuid import UUID
-from app.services.ta_service import ta_service, TalentAcquisitionService
+from app.services.ta_service import (
+    TalentAcquisitionService,
+    TalentAcquisitionService,
+)
 from app.schemas.api_schemas import JobResponse, CandidateResponse, JobCreate
 
 router = APIRouter(prefix="/jobs")
@@ -11,7 +14,7 @@ router = APIRouter(prefix="/jobs")
 @router.get("/", response_model=List[JobResponse])
 async def list_jobs():
     """Lists all available jobs."""
-    return await ta_service.get_all_jobs()
+    return await TalentAcquisitionService.get_all_jobs()
 
 
 @router.post(
@@ -22,7 +25,9 @@ async def upload_resumes(job_id: str, resume_files: UploadFile = File(...)):
     if not resume_files:
         raise HTTPException(status_code=400, detail="No resume files provided.")
     try:
-        candidates = await ta_service.process_resumes_for_job(job_id, [resume_files])
+        candidates = await TalentAcquisitionService.process_resumes_for_job(
+            job_id, [resume_files]
+        )
         return candidates
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
@@ -36,7 +41,7 @@ async def upload_resumes(job_id: str, resume_files: UploadFile = File(...)):
 async def get_job_candidates(job_id: str):
     """Retrieves all processed candidates for a specific job, sorted by score."""
     try:
-        return await ta_service.get_candidates_for_job(job_id)
+        return await TalentAcquisitionService.get_candidates_for_job(job_id)
     except Exception as e:
         raise HTTPException(
             status_code=500, detail=f"Failed to retrieve candidates: {e}"
