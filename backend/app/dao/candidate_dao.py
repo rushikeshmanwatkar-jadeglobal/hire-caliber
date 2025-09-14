@@ -1,6 +1,6 @@
 from beanie import PydanticObjectId
 from typing import List, Dict, Any
-from app.schemas.db_models import Candidate
+from app.schemas.models import Candidate
 
 
 class CandidateDAO:

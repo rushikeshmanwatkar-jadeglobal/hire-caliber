@@ -1,6 +1,6 @@
 from beanie import PydanticObjectId
 from typing import Optional
-from app.schemas.db_models import Job
+from app.schemas.models import Job
 
 
 class JobDAO:

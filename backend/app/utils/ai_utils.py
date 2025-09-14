@@ -1,7 +1,7 @@
 import json
 import numpy as np
 from openai import AsyncAzureOpenAI
-from app.config import settings
+from backend.app.core.config import settings
 
 # Initialize Azure OpenAI client
 client = AsyncAzureOpenAI(
@@ -14,7 +14,7 @@ client = AsyncAzureOpenAI(
 async def get_embedding(text: str) -> list[float]:
     """Generates embeddings for a given text using Azure OpenAI."""
     response = await client.embeddings.create(
-        input=text, model=settings.EMBEDDINGS_DEPLOYMENT_NAME
+        input=text, model=settings.EMBEDDING_MODEL_NAME
     )
     return response.data[0].embedding
 
@@ -47,7 +47,7 @@ async def standardize_resume(raw_text: str) -> dict:
     """
 
     response = await client.chat.completions.create(
-        model=settings.CHAT_DEPLOYMENT_NAME,  # Your actual model
+        model=settings.CHAT_MODEL_NAME,  # Your actual model
         # model="gpt-4-turbo",  # Example model
         response_format={"type": "json_object"},
         messages=[

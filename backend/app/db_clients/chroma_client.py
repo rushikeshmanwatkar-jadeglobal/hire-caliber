@@ -1,7 +1,7 @@
 import chromadb
 from typing import List, Optional
 
-from app.config import settings
+from backend.app.core.config import settings
 
 
 class ChromaDBClient:

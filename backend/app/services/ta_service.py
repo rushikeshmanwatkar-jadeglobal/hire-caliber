@@ -5,7 +5,7 @@ from app.dao.candidate_dao import candidate_dao
 from app.dao.job_dao import job_dao
 from app.db_clients.chroma_client import chroma_db_client
 from app.utils import ai_utils, file_utils
-from app.schemas.db_models import Candidate, Job
+from app.schemas.models import Candidate, Job
 
 
 class TalentAcquisitionService:

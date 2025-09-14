@@ -1,11 +1,28 @@
+# Web Framework
 fastapi
-uvicorn[standard]
+uvicorn
 pydantic
-pydantic-settings
+
+
+# Database & Vector Store
 beanie
-motor
+motor  # Async driver for MongoDB, used by Beanie
+chromadb
+redis
+
+# Asynchronous Tasks
+celery
+
+# LangChain & Document Processing
+langchain
+langchain-community
+langchain-text-splitters
+unstructured[pdf] # For intelligent PDF parsing
+pymupdf           # A dependency for unstructured
+sentence-transformers # For creating embeddings
+
+# Configuration & Utilities
+pydantic-settings
 openai
 python-dotenv
-chromadb
-pypdf
-python-multipart
+python-multipart # For file uploads

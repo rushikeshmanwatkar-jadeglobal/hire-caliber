@@ -8,18 +8,6 @@ from app.schemas.api_schemas import JobResponse, CandidateResponse, JobCreate
 router = APIRouter(prefix="/jobs")
 
 
-@router.post("/", status_code=201)
-async def create_job(job_data: JobCreate):
-    """Creates a new job posting."""
-    try:
-        job = await ta_service.create_new_job(
-            title=job_data.title, description=job_data.description
-        )
-        return job
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to create job: {e}")
-
-
 @router.get("/", response_model=List[JobResponse])
 async def list_jobs():
     """Lists all available jobs."""
