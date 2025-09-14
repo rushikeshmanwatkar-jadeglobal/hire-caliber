@@ -8,7 +8,7 @@ import jobs from './Jobs';
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems = {
-  items: [dashboard, pages, jobs]
+  items: [dashboard, pages, utilities, jobs]
 };
 
 export default menuItems;
