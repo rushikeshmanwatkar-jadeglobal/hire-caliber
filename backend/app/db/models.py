@@ -27,8 +27,7 @@ class Candidate(Document):
 
 class Job(Document):
     title: str
-    status: ProcessingStatus = Field(default=ProcessingStatus.PENDING)
-    full_text: Optional[str] = None
+    description: Optional[str] = None
     error_message: Optional[str] = None
 
     class Settings:

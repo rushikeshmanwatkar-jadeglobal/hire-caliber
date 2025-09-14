@@ -25,6 +25,7 @@ class CandidateDAO:
         profile: Dict[str, Any],
         score: Optional[float] = None,
         job_id: Optional[PydanticObjectId] = None,
+        full_text: Optional[str] = None,
     ) -> Candidate:
         try:
             candidate = Candidate(
@@ -32,6 +33,7 @@ class CandidateDAO:
                 standardized_profile=profile,
                 relevance_score=score,
                 job_id=job_id,
+                full_text=full_text,
             )
             await candidate.insert()
             return candidate

@@ -1,4 +1,5 @@
 # app/schemas/api_models.py
+from click import Option
 from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
 from beanie import PydanticObjectId
@@ -24,7 +25,7 @@ class CandidateResponse(BaseModel):
 class JobResponse(BaseModel):
     id: PydanticObjectId = Field(..., alias="_id")
     title: str
-    status: ProcessingStatus
+    description: str
 
     class Config:
         populate_by_name = True
@@ -32,12 +33,11 @@ class JobResponse(BaseModel):
 
 
 class MatchResult(BaseModel):
-    candidate_id: PydanticObjectId
-    candidate_filename: str
-    score: float
-    justification: Optional[str] = (
-        "Score is based on semantic similarity of resume chunks to the job description."
-    )
+    id: PydanticObjectId = Field(..., alias="_id")
+    name: str
+    relevance_score: Optional[Any] = None
+    standardized_profile: Optional[Any] = None
 
     class Config:
+        populate_by_name = True
         json_encoders = {PydanticObjectId: str}

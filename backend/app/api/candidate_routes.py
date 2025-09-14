@@ -15,7 +15,7 @@ router = APIRouter(
 )
 
 
-@router.post("/upload", status_code=202)
+@router.post("/upload", status_code=201)
 async def upload_resume(files: List[UploadFile] | UploadFile = File(...)):
     try:
         """Upload a resume, create a candidate record, and start background processing."""

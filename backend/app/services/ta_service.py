@@ -3,11 +3,12 @@ from beanie import PydanticObjectId
 from typing import List, Optional
 from fastapi import UploadFile
 from app.dao.candidate_dao import CandidateDAO
-from app.dao.job_dao import job_dao
 from app.db_clients.chroma_client import chroma_db_client
 from app.utils import ai_utils, file_utils
 from app.schemas.models import Candidate, Job
 from app.services.document_processor import DocumentProcessor
+from app.tasks.process import _process_job
+from app.dao.job_dao import JobDAO
 
 processor = DocumentProcessor()
 
@@ -15,12 +16,12 @@ processor = DocumentProcessor()
 class TalentAcquisitionService:
 
     @staticmethod
-    async def create_new_job(title: str, description: str) -> Job:
+    async def create_new_job(title: str, description: str):
         try:
-            new_job = await job_dao.create_job(title=title, description=description)
-
+            new_job = await JobDAO.create_job(title=title, description=description)
+            await _process_job(str(new_job.id), title, description)
             # Generate and store embedding for the job description
-            job_embedding = await ai_utils.get_embeddings(description)
+            job_embedding = ai_utils.get_embeddings(description)
             chroma_db_client.add_embedding(
                 collection_name="jobs_collection",
                 doc_id=str(new_job.id),
@@ -54,6 +55,7 @@ class TalentAcquisitionService:
                         "name", "Unknown Candidate"
                     ),
                     profile=standardized_profile,
+                    full_text=raw_text,
                 )
 
                 candidate_embedding = processor.process_and_embed(
@@ -82,5 +84,12 @@ class TalentAcquisitionService:
                 processed_candidates.append(new_candidate)
 
             return processed_candidates
+        except Exception as e:
+            raise e
+
+    @staticmethod
+    async def get_all_jobs():
+        try:
+            return await JobDAO.get_all_jobs()
         except Exception as e:
             raise e
