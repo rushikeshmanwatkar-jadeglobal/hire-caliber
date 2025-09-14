@@ -26,14 +26,19 @@ import AnimateButton from 'components/@extended/AnimateButton';
 // assets
 import EyeOutlined from '@ant-design/icons/EyeOutlined';
 import EyeInvisibleOutlined from '@ant-design/icons/EyeInvisibleOutlined';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function AuthLogin({ isDemo = false }) {
   const [checked, setChecked] = React.useState(false);
+  const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
+  };
+  const handleLogin = () => {
+    navigate('/home')
   };
 
   const handleMouseDownPassword = (event) => {
@@ -135,7 +140,7 @@ export default function AuthLogin({ isDemo = false }) {
               </Grid>
               <Grid size={12}>
                 <AnimateButton>
-                  <Button fullWidth size="large" variant="contained" color="primary">
+                  <Button fullWidth size="large" variant="contained" color="primary" onClick={handleLogin}>
                     Login
                   </Button>
                 </AnimateButton>
