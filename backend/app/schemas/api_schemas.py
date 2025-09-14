@@ -14,7 +14,7 @@ class DocumentStatusResponse(BaseModel):
 class CandidateResponse(BaseModel):
     id: PydanticObjectId = Field(..., alias="_id")
     name: str
-    summarized_profile: Dict[str, Any]
+    standardized_profile: Optional[Dict[str, Any]] = None
 
     class Config:
         populate_by_name = True

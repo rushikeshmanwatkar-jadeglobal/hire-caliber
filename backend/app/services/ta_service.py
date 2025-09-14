@@ -20,7 +20,7 @@ class TalentAcquisitionService:
             new_job = await job_dao.create_job(title=title, description=description)
 
             # Generate and store embedding for the job description
-            job_embedding = await ai_utils.get_embedding(description)
+            job_embedding = await ai_utils.get_embeddings(description)
             chroma_db_client.add_embedding(
                 collection_name="jobs_collection",
                 doc_id=str(new_job.id),
@@ -68,7 +68,7 @@ class TalentAcquisitionService:
                 #     if not job:
                 #         raise ValueError(f"Job with ID {job_id} not found.")
 
-                #     job_embedding = await ai_utils.get_embedding(job.description)
+                #     job_embedding = await ai_utils.get_embeddings(job.description)
                 #     score = ai_utils.calculate_cosine_similarity(
                 #         job_embedding, candidate_embedding
                 #     )

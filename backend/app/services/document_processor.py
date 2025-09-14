@@ -39,7 +39,7 @@ class DocumentProcessor:
             elements = partition(file=file_stream, file_filename=filename)
             return "\n\n".join([str(el) for el in elements])
         except Exception as e:
-            raise
+            raise e
 
     def process_and_embed(self, doc_id: str, text: str, doc_type: str):
         try:

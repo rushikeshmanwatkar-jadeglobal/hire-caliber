@@ -2,20 +2,13 @@ import json
 import numpy as np
 from openai import AsyncAzureOpenAI
 from backend.app.core.config import settings
-
-# Initialize Azure OpenAI client
-client = AsyncAzureOpenAI(
-    api_key=settings.AZURE_OPENAI_API_KEY,
-    api_version=settings.OPENAI_API_VERSION,
-    azure_endpoint=settings.AZURE_OPENAI_ENDPOINT,
-)
+from app.llm.azure_openai_provider import AzureOpenAIProvider
 
 
-async def get_embedding(text: str) -> list[float]:
+def get_embeddings(input) -> list[float]:
     """Generates embeddings for a given text using Azure OpenAI."""
-    response = await client.embeddings.create(
-        input=text, model=settings.EMBEDDING_MODEL_NAME
-    )
+    client = AzureOpenAIProvider(type="embedding")
+    response = client.embeddings(input=input)
     return response.data[0].embedding
 
 
@@ -45,10 +38,8 @@ async def standardize_resume(raw_text: str) -> dict:
 
     IMPORTANT: Do not include any personal contact information (email, phone, address). Do not add any explanatory text or markdown formatting before or after the JSON object.
     """
-
-    response = await client.chat.completions.create(
-        model=settings.CHAT_MODEL_NAME,  # Your actual model
-        # model="gpt-4-turbo",  # Example model
+    client = AzureOpenAIProvider(type="chat")
+    response = client.chat(
         response_format={"type": "json_object"},
         messages=[
             {"role": "system", "content": system_prompt},

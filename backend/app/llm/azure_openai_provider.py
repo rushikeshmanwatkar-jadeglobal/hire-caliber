@@ -31,10 +31,12 @@ class AzureOpenAIProvider:
             print(f"Error initializing AzureOpenAIProvider: {e}")
             raise e
 
-    def embeddings(self, input):  # type: ignore
-        return self.client.embeddings.create(input=input, model=self.deployment_name)
+    def embeddings(self, input, **kwargs):  # type: ignore
+        return self.client.embeddings.create(
+            input=input, model=self.deployment_name, **kwargs
+        )
 
-    def chat(self, messages):
+    def chat(self, messages, **kwargs):
         return self.client.chat.completions.create(
-            messages=messages, model=self.deployment_name
+            messages=messages, model=self.deployment_name, **kwargs
         )
