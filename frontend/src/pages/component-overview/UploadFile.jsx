@@ -3,7 +3,7 @@ import { Box, Typography, Button, Paper, Stack, IconButton } from '@mui/material
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import DeleteIcon from '@mui/icons-material/Delete';
-
+import { postRequest } from '../../utils/apiClient';
 export default function UploadFile() {
   const [selectedFile, setSelectedFile] = useState(null);
   const inputRef = useRef();
@@ -40,14 +40,14 @@ export default function UploadFile() {
     formData.append('resume', selectedFile);
 
     try {
-      // const response = await fetch('http://localhost:5000/upload', {
-      //   method: 'POST',
-      //   body: formData
-      // });
+      const jobId = '1';
+      const result = await postRequest(`/jobs/${jobId}/resumes`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
 
-      // if (!response.ok) {
-      //   throw new Error('Upload failed');
-      // }
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
 
       // const result = await response.json();
       alert(`✅ File "${selectedFile.name}" uploaded successfully!`);

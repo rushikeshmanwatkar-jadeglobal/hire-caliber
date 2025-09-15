@@ -1,5 +1,5 @@
 // src/pages/Jobs/JobsList.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   Card,
@@ -22,34 +22,37 @@ import { Edit as EditIcon, Add as AddIcon, Visibility as VisibilityIcon } from '
 import { Link } from 'react-router-dom';
 
 import JobModal from 'components/Modals/JobModal';
+// import React, { useState, useEffect } from 'react';
+// ...other imports...
+import { getRequest } from '../../utils/apiClient'; // Make sure this is correct
 
 // ✅ New mock data
-const mockJobs = [
-  {
-    id: '1',
-    title: 'Servicenow Developer',
-    description: `In order to be successful in this role, we need someone who has:
-● BS in Computer Science/Engineering or equivalent domain with 5-15 years of cloud applications experience.
-● Experience working with wide variety of automated testing tools including Selenium, Programming Language – Java , Unit Test Framework – MSTest / NUnit and TestNG / Junit and other open source tools.
-● Setting up automated test framework’s with different tools/ enhancing existing framework.
-● Exposure on creating build pipelines using Jenkins.
-● Experience working with SCM tools like Git/ SVN.
-● Experience in Rest API automation tools like – Rest Assured/ Http Client.
-● Knowledge of continuous integration and deployment tools (e.g. Jenkins).
-● Experience working in Agile Practices (SAFE, Scrum)`
-  },
-  {
-    id: '2',
-    title: 'Oracle HCM techno functional',
-    description: `Functional knowledge of Compensation and Equity area in Oracle is plus
--HCM Techno-Functional Engineers / Integration Engineers with core expertise in HCM extract , HCM API integration , HDL imports . Added expertise in Mulesoft would be a highly desirable but not mandatory.
-● Oracle HCM Tech (Integrations, Data Conversion , Reports, Fast Formulas, OIC(Optional)) + Functional Coverage.
-● Hands-on expertise with Oracle HCM tools such as OTBI, BI Publisher, and HDL/SDL.
-● Optional experience with Oracle Integration Cloud (OIC) is a strong advantage.
-● Strong problem-solving skills with the ability to work independently and collaboratively in a team.
-● Excellent communication and documentation skills.`
-  }
-];
+// const mockJobs = [
+//   {
+//     id: '1',
+//     title: 'Servicenow Developer',
+//     description: `In order to be successful in this role, we need someone who has:
+// ● BS in Computer Science/Engineering or equivalent domain with 5-15 years of cloud applications experience.
+// ● Experience working with wide variety of automated testing tools including Selenium, Programming Language – Java , Unit Test Framework – MSTest / NUnit and TestNG / Junit and other open source tools.
+// ● Setting up automated test framework’s with different tools/ enhancing existing framework.
+// ● Exposure on creating build pipelines using Jenkins.
+// ● Experience working with SCM tools like Git/ SVN.
+// ● Experience in Rest API automation tools like – Rest Assured/ Http Client.
+// ● Knowledge of continuous integration and deployment tools (e.g. Jenkins).
+// ● Experience working in Agile Practices (SAFE, Scrum)`
+//   },
+//   {
+//     id: '2',
+//     title: 'Oracle HCM techno functional',
+//     description: `Functional knowledge of Compensation and Equity area in Oracle is plus
+// -HCM Techno-Functional Engineers / Integration Engineers with core expertise in HCM extract , HCM API integration , HDL imports . Added expertise in Mulesoft would be a highly desirable but not mandatory.
+// ● Oracle HCM Tech (Integrations, Data Conversion , Reports, Fast Formulas, OIC(Optional)) + Functional Coverage.
+// ● Hands-on expertise with Oracle HCM tools such as OTBI, BI Publisher, and HDL/SDL.
+// ● Optional experience with Oracle Integration Cloud (OIC) is a strong advantage.
+// ● Strong problem-solving skills with the ability to work independently and collaboratively in a team.
+// ● Excellent communication and documentation skills.`
+//   }
+// ];
 
 function ActionsCell({ row }) {
   return (
@@ -73,7 +76,7 @@ ActionsCell.propTypes = {
 };
 
 const JobsList = () => {
-  const [jobs, setJobs] = useState(mockJobs);
+  const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -83,6 +86,20 @@ const JobsList = () => {
     setJobToEdit(null);
     setModalOpen(true);
   };
+  useEffect(() => {
+    const fetchJobs = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await getRequest('/jobs/');
+        setJobs(data);
+      } catch (err) {
+        setError('Failed to fetch jobs');
+      }
+      setLoading(false);
+    };
+    fetchJobs();
+  }, []);
 
   const handleCloseModal = () => {
     setModalOpen(false);
@@ -90,6 +107,7 @@ const JobsList = () => {
   };
 
   const handleSuccess = () => {
+    fetchJobs();
     // Here you can update the list later when connected to API
   };
 
