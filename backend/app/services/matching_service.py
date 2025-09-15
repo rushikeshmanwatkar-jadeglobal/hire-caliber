@@ -5,7 +5,9 @@ from beanie import PydanticObjectId
 
 from app.db.chromadb import jobs_collection, candidates_collection
 from app.db.models import Candidate
-from backend.app.schemas.models import MatchResult
+from app.schemas.api_schemas import MatchResult
+from app.db_clients.chroma_client import chroma_db_client
+from langchain_chroma import Chroma
 
 
 class MatchingService:
@@ -33,8 +35,9 @@ class MatchingService:
 
             best_scores = {}
             for i in range(len(results["ids"][0])):
-                candidate_id = results["metadatas"][0][i]["document_id"]
-                similarity = 1 - results["distances"][0][i]
+                candidate_id = results["metadatas"][0][i]["document_id"]  # type: ignore
+                similarity = 1 - results["distances"][0][i]  # type: ignore
+
                 if (
                     candidate_id not in best_scores
                     or similarity > best_scores[candidate_id]
@@ -49,9 +52,11 @@ class MatchingService:
             for cid_str in ranked_candidates[:top_n]:
                 candidate_data = await Candidate.get(PydanticObjectId(cid_str[0]))
                 if candidate_data:
-                    final_matches.append(
-                        MatchResult(**candidate_data.model_dump(by_alias=True))
+                    response_candidate = MatchResult(
+                        **candidate_data.model_dump(by_alias=True)
                     )
+                    response_candidate.relevance_score = cid_str[1]
+                    final_matches.append(response_candidate)
 
             return final_matches
         except Exception as e:

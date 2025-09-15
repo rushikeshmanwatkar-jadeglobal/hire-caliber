@@ -1,9 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Union, List, Literal
 from langchain.schema import AIMessage
-from app.utils.logger import setup_logger
-
-logger = setup_logger(__name__)
 
 
 class BaseLLM(ABC):

@@ -23,7 +23,7 @@ class AzureOpenAIProvider:
             self.azure_endpoint = settings.AZURE_OPENAI_ENDPOINT
             self.openai_api_version = settings.OPENAI_API_VERSION
             self.client = AzureOpenAI(
-                azure_endpoint=self.azure_endpoint,
+                azure_endpoint=self.azure_endpoint,  # type: ignore
                 api_key=self.api_key,
                 api_version=self.openai_api_version,
             )
