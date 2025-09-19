@@ -110,3 +110,5 @@ dist
 # wincompare file
 .bak
 
+*.pyc
+chroma_db_data/

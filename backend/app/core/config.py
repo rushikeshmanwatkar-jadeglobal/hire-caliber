@@ -8,12 +8,8 @@ load_dotenv()
 
 class Settings(BaseSettings):
     MONGO_CONNECTION_STRING: Optional[str] = "mongodb://127.0.0.1:27017/hire_caliber"
-    AZURE_OPENAI_API_KEY: Optional[str] = (
-        "5bKI58jSZBaHLSWY5DS6fwyIqlEPtTIKqHi9tPdoUZOULfUqr7LmJQQJ99AKACHYHv6XJ3w3AAAAACOGyFpk"
-    )
-    AZURE_OPENAI_ENDPOINT: Optional[str] = (
-        "https://hrish-m3zpdd19-eastus2.cognitiveservices.azure.com/"
-    )
+    AZURE_OPENAI_API_KEY: Optional[str] = ""
+    AZURE_OPENAI_ENDPOINT: Optional[str] = ""
     OPENAI_API_VERSION: Optional[str] = "2024-02-01"
     EMBEDDING_MODEL_NAME: str = "hackathon-em-group5"
     CHAT_MODEL_NAME: str = "hackathon-group5"
