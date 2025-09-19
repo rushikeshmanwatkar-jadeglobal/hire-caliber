@@ -1,12 +1,8 @@
 # app/api/candidates.py
-import base64
-from typing import Any, List
+from typing import List
 from fastapi import APIRouter, UploadFile, File, HTTPException
-from beanie import PydanticObjectId
-from torch import Value
 
-from app.db.models import Candidate, ProcessingStatus
-from app.schemas.api_schemas import CandidateResponse, DocumentStatusResponse
+from app.schemas.api_schemas import CandidateResponse
 from app.services.ta_service import TalentAcquisitionService
 
 router = APIRouter(

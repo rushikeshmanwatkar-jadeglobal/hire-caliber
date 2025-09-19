@@ -1,16 +1,15 @@
 # app/api/jobs.py
-from typing import List
 from fastapi import APIRouter, HTTPException, Body
 from beanie import PydanticObjectId
 
-from app.db.models import Job, ProcessingStatus
-from app.schemas.api_schemas import JobResponse, DocumentStatusResponse, MatchResult
+from app.db.models import Job
+from app.schemas.api_schemas import JobResponse
 from app.services.matching_service import MatchingService
 
 router = APIRouter(prefix="/jobs", tags=["Jobs"])
 
 from app.services.ta_service import TalentAcquisitionService
-from app.schemas.api_schemas import JobResponse, CandidateResponse
+from app.schemas.api_schemas import JobResponse
 
 
 @router.get("/", status_code=200)
